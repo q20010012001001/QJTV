@@ -1,23 +1,37 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <div class="header">
+          <!-- 头 -->
+          <hheader></hheader>
+
+          <!-- 导航 -->
+          <hnav></hnav>
+
+          <!-- 内容 -->
+          <keep-alive include="list">
+            <router-view></router-view>
+          </keep-alive>
+    </div>
   </div>
 </template>
 
 <script>
+import hheader from '@/components/header/header'
+import hnav from '@/components/nav/nav'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    hheader,
+    hnav
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="less" scoped>
+.header{
+  // position:absolute;
+  // top:0;
+  z-index:999;
+  width:100%;
 }
 </style>

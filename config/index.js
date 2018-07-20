@@ -10,7 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api':{
+        target:'http://www.quanjiaotv.com',
+        secure: false, //默认情况下，不接受运行在 HTTPS 上，且使用了无效证书的后端服务器
+        changeOrigin: true, //是否跨域
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
