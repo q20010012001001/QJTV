@@ -18,23 +18,37 @@ export default {
         scrollX: true,
         scrollY: false,
         click: true,
-        startX: this._navinitoffset()
+        bounce: { // 当滚动超过边缘的时候会有一小段回弹动画。设置为 true 则开启动画
+          left: false,
+          right: false
+        }
       })
+
+      this._indexnav()
     }, 20)
   },
   methods: {
 
-    // 获取初始化导航的offsetLeft
+    // 更新導航index
+    _indexnav () {
+      this.$nextTick(() => {
+        let index = this._navinitoffset()
+        this.slider.refresh()
+        this.slider.scrollToElement(this.$refs.content.children[index], 0)
+      })
+    },
+
+    // 获取初始化导航的index
     _navinitoffset () {
       let childrena = this.$refs.content.children
       let index = 0
       for (let i = 0; i < childrena.length; i++) {
         let reg = new RegExp('(^|\\s)' + 'router-link-exact-active' + '(\\s|$)')
         if (reg.test(childrena[i].className)) {
-          index = childrena[i].offsetLeft
+          index = i
         }
       }
-      return -index
+      return index
     },
 
     // 设置ul宽度
@@ -48,6 +62,9 @@ export default {
       this.$refs.content.style.width = ulwidth + 'px'
     }
 
+  },
+  activated () {
+    this._indexnav()
   }
 }
 </script>

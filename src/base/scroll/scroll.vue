@@ -13,39 +13,78 @@
 <script>
 import BTscroll from 'better-scroll'
 export default {
+  props: {
+    pullUpLoad: {
+      type: null,
+      default: false
+    },
+    pullDownRefresh: {
+      type: null,
+      default: false
+    },
+    probeType: {
+      type: Number,
+      default: 0
+    }
+  },
+  data () {
+    return {
+    }
+  },
   methods: {
 
     _inintscroll () {
+      if (!this.$refs.wrapper) {
+        return
+      }
+
       this.scroll = new BTscroll(this.$refs.wrapper, {
-        scrollbar: true
+        scrollbar: true,
+        click: true,
+        probeType: this.probeType,
+        pullDownRefresh: this.pullDownRefresh,
+        pullUpLoad: this.pullUpLoad
       })
 
-      // // 派发滚动到底部事件，用于上拉加载
-      // this.scroll.on('scrollEnd', () => {
-      //   if (this.scroll.y <= (this.scroll.maxScrollY + 50)) {
-      //     // 所有数据加载完毕后
-      //     this.$on('infinitescroll.loadedDone', () => {
-      //       this.isLoading = false
-      //       this.isDone = true
-      //     })
-      //     // 单次请求数据加载完毕后
-      //     this.$on('infinitescroll.finishLoad', (ret) => {
-      //       this.isLoading = false
-      //     })
-      //     // 重新初始化
-      //     this.$on('infinitescroll.reInit', () => {
-      //       this.isLoading = false
-      //       this.isDone = false
-      //     })
-      //     this.$emit('scrollToEnd')
-      //   }
-      // })
+      let me = this
+      this.scroll.on('scroll', (pos) => {
+        me.$emit('scrollpos', pos)
+      })
+
+      if (this.pullUpLoad) {
+        this._initPullUpLoad()
+      }
+      if (this.pullDownRefresh) {
+        this._initPullDownRefresh()
+      }
+    },
+    _initPullDownRefresh () {
+      this.scroll.on('pullingDown', () => {
+        this.$emit('pullingDown')
+      })
+    },
+    _initPullUpLoad () {
+      this.scroll.on('pullingUp', () => {
+        this.$emit('pullingUp')
+      })
     },
     scrollToElement () {
       this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
     },
     scrollTo () {
       this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
+    },
+    refresh () {
+      this.scroll && this.scroll.refresh()
+    },
+    y () {
+      return this.scroll.y
+    },
+    finishPullUp () {
+      this.scroll && this.scroll.finishPullUp()
+    },
+    finishPullDown () {
+      this.scroll && this.scroll.finishPullDown()
     }
   },
   mounted () {
