@@ -9,14 +9,14 @@
                 </a>
             </li>
           </bannerslider>
-          <loading></loading>
+          <!-- <loading></loading> -->
         </div>
     </section>
 </template>
 
 <script>
 import bannerslider from 'base/bannerslider/bannerslider.vue'
-import loading from '@/base/loading/loading.vue'
+// import loading from '@/base/loading/loading.vue'
 
 export default {
   data () {
@@ -31,8 +31,8 @@ export default {
     }
   },
   components: {
-    bannerslider,
-    loading
+    bannerslider
+    // loading
   },
   methods: {
     loadImage () {
@@ -50,7 +50,7 @@ export default {
 .banner{
     width:100%;
     overflow:hidden;
-    height:4.9rem;
+    // height:4.9rem;
     position:relative;
 
     li{
