@@ -17,7 +17,7 @@ module.exports = {
         changeOrigin: true, //是否跨域
       },
       '/search':{
-        target:'http://www.quanjiaotv.com/json/LoadSearchList.do?size=10&search=%E5%85%A8%E6%A4%92&offset=0',
+        target:'http://www.quanjiaotv.com/json/LoadSearchList.do',
         changeOrigin:true
       }
     },
