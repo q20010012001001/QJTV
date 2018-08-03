@@ -20,7 +20,7 @@
 
         <!-- 列表页 -->
         <getcate v-if="$route.query.id ==='321200'" :getcatelist="listdata"></getcate>
-        <hlist v-else :tuijianlist="listdata"></hlist>
+        <hlist v-else @listscrollrefsh="listscrollrefsh" :tuijianlist="listdata"></hlist>
 
         <loading :state="state"></loading>
       </div>
@@ -68,6 +68,10 @@ export default {
     }
   },
   methods: {
+
+    listscrollrefsh () {
+      this.$refs.scroll.refresh()
+    },
 
     // search按钮点击
     serachclick () {

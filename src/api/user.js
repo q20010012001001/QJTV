@@ -2,13 +2,14 @@ import oo from '@/common/js/commonApi.js'
 import axios from 'axios'
 
 // 获取用户的发布新闻列表
-export function userlistAxios (uid) {
+export function userlistAxios (uid, page) {
   let cmd = 'getdiarylist'
   let url = '/api/server'
   let id = uid
   let obj = Object.assign({}, oo, {
     cmd,
-    id
+    id,
+    page
   })
   return axios.get(url, {
     params: obj

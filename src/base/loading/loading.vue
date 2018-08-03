@@ -13,7 +13,8 @@
 export default {
   props: {
     state: { // 数据状态,没有数据为false,有数据为true
-      type: Boolean
+      type: Boolean,
+      default: true
     }
   }
 }

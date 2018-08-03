@@ -1,34 +1,71 @@
 <template>
     <section class="video">
-        <h1>{{audio.title}}</h1>
-        <audio :src="audio.url" controls></audio>
+      <loadingvue v-show="!showfalse"></loadingvue>
+      <div v-show="showfalse">
+          <headerdetail ref="header" :data="audio"></headerdetail>
+          <div class="audioContent">
+            <audio :src="audio.url" controls></audio>
+            <div class="desc" v-html="audio.desc"></div>
+          </div>
+          <tuijian ref="tuijian"></tuijian>
+        </div>
+
     </section>
 </template>
 
 <script>
 import {audioAxios} from '@/api/detailend.js'
+import loadingvue from '@/base/loading/loading.vue'
+import headerdetail from '@/base/detaillist/header.vue'
+import tuijian from '@/base/detaillist/tuijian.vue'
 export default {
-  name: 'videoDetail',
+  name: 'audioDetail',
   data () {
     return {
-      audio: []
+      audio: [],
+      showfalse: false
     }
+  },
+  components: {
+    loadingvue,
+    headerdetail,
+    tuijian
   },
   methods: {
     audioData () {
       audioAxios(this.$route.query.id).then(data => {
         this.audio = data.data.data
-        console.log(this.audio)
+        this.$nextTick(() => {
+          // 延遲加載詳情頁
+          setTimeout(() => {
+            this.showfalse = true
+          }, 500)
+        })
       })
     }
   },
   created () {
     this.audioData()
+  },
+  watch: {
+    $route () {
+      document.body.scrollTop = 0
+      this.showfalse = false
+      this.audioData()
+      this.$refs.header.userdata()
+      this.$refs.tuijian.ajaxtuijian()
+      this.$refs.tuijian.ajaxtuijianguanggao()
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
+@import '~common/less/common.less';
+audio{
+  padding:0 30/@rem;
+  margin:0 auto;
+}
 .slide-enter-active, .slide-leave-active{
     transition: all 0.3s
     }

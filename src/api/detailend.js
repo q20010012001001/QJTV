@@ -48,3 +48,28 @@ export function audioAxios (id) {
     params: datac
   })
 }
+
+// 详情页广告接口
+export function getadlink () {
+  let url = '/api/server'
+  let datax = Object.assign({}, oos, {
+    'cmd': 'getadlink',
+    'page': 1
+  })
+  return axios.get(url, {
+    params: datax
+  })
+}
+
+// 相关推荐接口
+export function xiangguantuijian () {
+  let url = '/api/server'
+  let datax = Object.assign({}, oos, {
+    'cmd': 'gethomelist',
+    'page': 1,
+    'size': 6
+  })
+  return axios.get(url, {
+    params: datax
+  })
+}

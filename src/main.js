@@ -8,7 +8,12 @@ import '@/common/css/common.css'
 import 'lib-flexible'
 
 import store from '@/store/index'
+
+import VueLazyload from 'vue-lazyload'
 Vue.config.productionTip = false
+Vue.use(VueLazyload, {
+  loading: require('common/image/default.jpg')
+})
 
 /* eslint-disable no-new */
 new Vue({

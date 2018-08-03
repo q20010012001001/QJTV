@@ -10,14 +10,14 @@
                   {{item.title}}
                 </div>
                 <div class="twoimg flex-pack-justify flex">
-                  <div class="flex-1"><img :src="item.img |imgUrlStr(0,item)" alt=""></div>
+                  <div class="flex-1"><img v-lazy="item.arrimg[0]" alt=""></div>
                   <div class="flex-1">
-                    <img :src="item.img |imgUrlStr(1,item)" alt="">
+                    <img v-lazy="item.arrimg[1]" alt="">
                     <span v-if="item.type === '0'" class="write"></span>
                   </div>
                 </div>
               </div>
-<div class="pro flex flex-align-center">
+                <div class="pro flex flex-align-center">
                   <span @click="linkuser(item.uid)" class="img flex flex-align-center"><img :src="item.authorLogo" alt="">{{item.from}}</span>
                   <span>{{item.time | splittimer}}</span>
                   <span>浏览量: {{item.visitNum}}</span>
@@ -30,7 +30,7 @@
                   {{item.title}}
                 </div>
 <div class="pro flex flex-align-center">
-                  <span @click="linkuser(item.uid)" class="img flex flex-align-center"><img :src="item.authorLogo" alt="">{{item.from}}</span>
+                  <span v-if="item.authorLogo || item.authorName" @click="linkuser(item.uid)" class="img flex flex-align-center"><img :src="item.authorLogo" alt="">{{item.from}}</span>
                   <span>{{item.time | splittimer}}</span>
                   <span>浏览量: {{item.visitNum}}</span>
                 </div>
@@ -41,8 +41,8 @@
             <div @click="linkrouter(item)" class="title flex flex-align-center">
                   {{item.title}}
                 </div>
-                <div class="pongeImg flex">
-                    <img class="flex-1" :src="item.img |imgUrlStr(0,item)" alt="">
+                <div @click="linkrouter(item)" class="pongeImg flex">
+                    <img class="flex-1" v-lazy="item.arrimg[0]" alt="">
                     <span v-if="item.type === '0'" class="write"></span>
                   </div>
 <div class="pro flex flex-align-center">
@@ -58,11 +58,19 @@
                 <div class="title flex flex-align-center">
                   {{item.title}}
                 </div>
-                <div class="treeimg flex-pack-justify flex">
-                  <div><img :src="item.img |imgUrlStr(0,item)" alt=""></div>
-                  <div><img :src="item.img |imgUrlStr(1,item)" alt=""></div>
+                <div v-if="item.type == 0" class="treeimg flex-pack-justify flex">
+                  <div><img v-lazy="item.arrimg[0]" alt=""></div>
+                  <div><img v-lazy="item.arrimg[1]" alt=""></div>
                   <div>
-                    <img :src="item.img |imgUrlStr(2,item)" alt="">
+                    <img v-lazy="item.arrimg[2]" alt="">
+                    <span v-if="item.type === '0'" class="write"></span>
+                  </div>
+                </div>
+                <div v-else class="treeimg flex-pack-justify flex">
+                  <div><img v-lazy="item.img" alt=""></div>
+                  <div><img v-lazy="item.img2" alt=""></div>
+                  <div>
+                    <img v-lazy="item.img3" alt="">
                     <span v-if="item.type === '0'" class="write"></span>
                   </div>
                 </div>
@@ -81,12 +89,25 @@
                   {{item.title}}
                 </div>
                 <div class="imgpro">
-                  <img :src="item.img" alt="">
+                  <img v-lazy="item.img" alt="">
                   <span v-if="item.type === '0'" class="write"></span>
                 </div>
 
               </div>
 <div class="pro flex flex-align-center">
+                  <span @click="linkuser(item.uid)" class="img flex flex-align-center"><img :src="item.authorLogo" alt="">{{item.from}}</span>
+                  <span>{{item.time | splittimer}}</span>
+                  <span>浏览量: {{item.visitNum}}</span>
+                </div>
+            </div>
+
+            <!-- 音樂 -->
+            <div class="audio" v-else-if="item.type == 3">
+              <div @click="linkrouter(item)" class="h5audioimg flex flex-align-center">
+                <img src="./h5_audio.png" alt="">
+                <span class="title">{{item.title}}</span>
+              </div>
+              <div class="pro flex flex-align-center">
                   <span @click="linkuser(item.uid)" class="img flex flex-align-center"><img :src="item.authorLogo" alt="">{{item.from}}</span>
                   <span>{{item.time | splittimer}}</span>
                   <span>浏览量: {{item.visitNum}}</span>
@@ -106,6 +127,25 @@ const advertisement = '4' // 广告
 export default {
   props: ['tuijianlist'],
   name: 'list',
+  watch: {
+    tuijianlist (dataval) {
+      let op = dataval
+      op.map((val, index) => {
+        if (val.type === '0') {
+          let lastindedxof = val.img.lastIndexOf('-')
+          let yi = val.img.substring(0, lastindedxof)
+          let lzui = val.img.substring(lastindedxof)
+          let er = lzui.split('.')[1]
+          let arrimg = []
+          for (let i = 1; i < 4; i++) {
+            arrimg.push(`${yi}-${i}.${er}`)
+          }
+          val.arrimg = arrimg
+        }
+      })
+      return op
+    }
+  },
   filters: {
     splittimer (val) {
       return val.split(' ')[0]
@@ -132,28 +172,32 @@ export default {
         this.$router.push({
           name: 'article',
           query: {
-            id: val.id
+            id: val.id,
+            uid: val.uid
           }
         })
       } else if (val.type === video) {
         this.$router.push({
           name: 'video',
           query: {
-            id: val.id
+            id: val.id,
+            uid: val.uid
           }
         })
       } else if (val.type === album) {
         this.$router.push({
           name: 'album',
           query: {
-            id: val.id
+            id: val.id,
+            uid: val.uid
           }
         })
       } else if (val.type === audio) {
         this.$router.push({
           name: 'audio',
           query: {
-            id: val.id
+            id: val.id,
+            uid: val.uid
           }
         })
       } else if (val.type === advertisement) {
@@ -168,12 +212,21 @@ export default {
         }
       })
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.$emit('listscrollrefsh')
+    }, 20)
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import "~common/less/common.less";
+.h5audioimg img{
+  width:50/@rem;
+  margin-right:20/@rem;
+}
 li {
   .pongge{
     .pongeImg{
