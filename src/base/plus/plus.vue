@@ -1,44 +1,76 @@
 <template>
-    <section class="plus">
+    <section v-if="navdata.default" class="plus">
+        <span @click="removeclick" class="remove"><img src="./sum_cha.png" alt=""></span>
         <div class="true">
             <div class="title">我的频道<span>点击删除频道</span></div>
             <ul class="clearfix">
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
+                <li @click="liclick(0,index)" :key="index" v-for="(item,index) in navdata.default" class="omit border-box">{{item.title}}</li>
             </ul>
         </div>
         <div class="flase">
             <div class="title">频道推荐<span>点击添加以下频道</span></div>
             <ul>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
-                <li class="omit border-box">全全椒新闻椒新闻</li>
+                <li @click="liclick(1,index)" :key="index" v-for="(item,index) in navdata.other" class="omit border-box">{{item.title}}</li>
             </ul>
         </div>
     </section>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 export default {
   computed: {
+    // ...mapState({
+    //   plus: state => state.plus.HEADERFOOTER
+    // })
     ...mapState({
-      plus: state => state.plus.HEADERFOOTER
+      navdata: state => {
+        return state.navdata
+      }
     })
   },
   mounted () {
-    // console.log(this.plus)
+  },
+  methods: {
+    ...mapMutations({
+      merthodskk: 'NAVDATA'
+    }),
+    removeclick () {
+      this.$router.go(-1)
+    },
+
+    // 点击添加与删除
+    liclick (num, index) {
+      // 防止推荐与点播被换到下方
+      if (!num && (index === 0 || index === 1)) {
+        return
+      }
+      if (num) {
+        let op = this.navdata.other.splice(index, 1)
+        this.navdata.default.push(op[0])
+      } else {
+        let op = this.navdata.default.splice(index, 1)
+        this.navdata.other.push(op[0])
+      }
+      this.merthodskk(this.navdata)
+    }
+
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import '~common/less/common.less';
+.remove{
+    position:absolute;
+    right:30/@rem;
+    top:30/@rem;
+    width:30/@rem;
+    img{
+        width:100%;
+        display:block;
+    }
+}
 .true{
     margin-top:80/@rem;
 }
@@ -46,6 +78,7 @@ ul{
             flex-wrap: wrap;
     }
     ul li{
+        text-align: center;
         margin-right:20/@rem;
         &:nth-of-type(4n+0){
             margin-right:0

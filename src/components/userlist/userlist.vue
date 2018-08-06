@@ -16,7 +16,7 @@
             :pullUpLoad="pullUpLoad">
 
       <!-- 头像背景头像 -->
-      <div class="backgroundurl flex flex-v flex-align-center" :style="{'background-image':`url(${userdetail.bgimg})`}">
+      <div class="backgroundurl flex flex-v flex-align-center" :style="{backgroundImage:'url('+(userdetail.bgimg?userdetail.bgimg:banseimg)+')'}">}
         <div class="touxiang flex flex-pack-center">
           <div><img :src="userdetail.img" alt=""></div>
         </div>
@@ -38,7 +38,9 @@
 
         <!-- 列表 -->
         <listtwo :tuijianlist="userlist"></listtwo>
+        <loading :state="state"></loading>
       </div>
+
       </scroll>
 
       </div>
@@ -51,8 +53,8 @@ import {userlistAxios, userdetailAxios} from '@/api/user.js'
 import headerhistory from '@/base/headerhistroy/headerhistroy.vue'
 import scroll from '@/base/scroll/scroll.vue'
 import listtwo from '@/base/list/list2.vue'
+import loading from 'base/loading/loading.vue'
 export default {
-
   methods: {
     pullingUp () {
       this.userlistData()
@@ -63,9 +65,12 @@ export default {
 
     // 作者发布的新闻列表
     userlistData () {
-      if (this.openkey) { return }
+      if (this.openkey || !this.state) { return }
       this.openkey = true
       userlistAxios(this.$route.query.uid, this.page).then(res => {
+        if (res.data.data.length < 20) {
+          this.state = false
+        }
         this.userlist = this.userlist.concat(res.data.data)
         this.page++
         this.$nextTick(() => {
@@ -86,6 +91,7 @@ export default {
   },
   data () {
     return {
+      banseimg: require('./banner1.jpg'),
       openkey: false,
       userlist: [],
       userdetail: {},
@@ -94,7 +100,8 @@ export default {
       pullUpLoad: {
         threshold: 200
       },
-      page: 1
+      page: 1,
+      state: true
     }
   },
   created () {
@@ -104,7 +111,8 @@ export default {
   components: {
     listtwo,
     headerhistory,
-    scroll
+    scroll,
+    loading
   },
   watch: {
     $route (to, form, next) {
@@ -180,16 +188,17 @@ export default {
 .touxiang{
   margin-top: 20/@rem;
   div{
-    padding:5/@rem;
-    background:#fff;
-    border-radius:50%;
+
   }
 }
 .touxiang img{
   width:150/@rem;
+  height:150/@rem;
   border-radius: 50%;
+  padding:5/@rem;
+    background:#fff;
 }
 .text div{
-  margin-top:10/@rem;
+  // margin-top:10/@rem;
 }
 </style>

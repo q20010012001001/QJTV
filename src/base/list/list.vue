@@ -85,7 +85,7 @@
             <!-- 一张图 -->
             <div v-else-if="item.type == 0 || (item.type==1&&item.img&&!item.img.match(/default.png/)) || (item.type==2&&item.img) || (item.type==4&&item.img)" class="oneImage">
               <div @click="linkrouter(item)" class="aim flex flex-align-center flex-pack-justify">
-                <div class="title flex flex-align-center">
+                <div class="title flex flex-align-center flex-1">
                   {{item.title}}
                 </div>
                 <div class="imgpro">

@@ -18,7 +18,6 @@ export function getListData (obj) {
   let cmd = 'getnewslist'
   let cid = obj.id
   let page = obj.page
-  console.log(cid)
   if (!parseInt(cid)) { // 判断是推荐数据还是其他数据
     cmd = 'gethomelist'
     cid = ''
