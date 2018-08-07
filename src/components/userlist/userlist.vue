@@ -21,9 +21,9 @@
           <div><img :src="userdetail.img" alt=""></div>
         </div>
         <div class="text flex flex-v flex-pack-center">
-          <div class="colorf00">
+          <div class="colorf00 flex">
             <span>{{userdetail.username}}</span>
-            <span>关注</span>
+            <span class="lol flex flex-align-center"><img src="./attention.png" alt=""></span>
           </div>
           <div class="colorfff">{{userdetail.desc}}</div>
         </div>
@@ -139,6 +139,12 @@ export default {
 
 <style lang="less" scoped>
 @import '~common/less/common.less';
+.lol{
+  margin-left:10/@rem;
+  img{
+    width:140/@rem;
+  }
+}
 .posscroll{
   position:fixed;
   overflow: hidden;

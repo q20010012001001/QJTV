@@ -271,6 +271,7 @@ li {
     .img {
       img {
         width: 40 / @rem;
+        height: 40 / @rem;
         border-radius: 50%;
         margin-right: 10 / @rem;
       }

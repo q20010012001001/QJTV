@@ -53,6 +53,7 @@ export default {
         this.navdata.other.push(op[0])
       }
       this.merthodskk(this.navdata)
+      console.log(JSON.parse(localStorage.getItem('vuex')))
     }
 
   }
@@ -73,6 +74,11 @@ export default {
 }
 .true{
     margin-top:80/@rem;
+    ul li{
+        &:nth-of-type(1),&:nth-of-type(2){
+            background:#f0f0f0;
+        }
+    }
 }
 ul{
             flex-wrap: wrap;

@@ -34,6 +34,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@import '~common/less/common.less';
+.album{
+  width:100%;
+  height:100%;
+  background:#000;
+  overflow:hidden;
+  position:fixed;
+  top:0;
+  left:0;
+}
 img{
     max-width:100%;
     width:100%;

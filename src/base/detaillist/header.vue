@@ -91,7 +91,7 @@ font-size:24/@rem;
     width:126/@rem;
     display:inline-block;
     color:#fff;
-    background:#f60;
+    background:#088DE7;
     border-radius:10/@rem;
     text-align: center;
     font-size:26/@rem;

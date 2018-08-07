@@ -4,7 +4,8 @@
       <div v-show="showfalse">
           <headerdetail ref="header" :data="audio"></headerdetail>
           <div class="audioContent">
-            <audio :src="audio.url" controls></audio>
+            <audiode :audiodata="audio"></audiode>
+            <!-- <audio :src="audio.url" controls></audio> -->
             <div class="desc" v-html="audio.desc"></div>
           </div>
           <tuijian ref="tuijian"></tuijian>
@@ -18,6 +19,7 @@ import {audioAxios} from '@/api/detailend.js'
 import loadingvue from '@/base/loading/loading.vue'
 import headerdetail from '@/base/detaillist/header.vue'
 import tuijian from '@/base/detaillist/tuijian.vue'
+import audiode from '@/base/audio/audio.vue'
 export default {
   name: 'audioDetail',
   data () {
@@ -29,7 +31,8 @@ export default {
   components: {
     loadingvue,
     headerdetail,
-    tuijian
+    tuijian,
+    audiode
   },
   methods: {
     audioData () {

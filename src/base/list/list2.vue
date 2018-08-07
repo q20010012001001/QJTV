@@ -9,6 +9,10 @@
 <div class="pro flex flex-align-center">
                   <span>{{item.date | splittimer}}</span>
                   <span>浏览量: {{item.view}}</span>
+                  <span @click="Collection" class="Collection flex flex-align-center">
+                    <img src="./shoucang.png" alt="">
+                    收藏
+                  </span>
                 </div>
           </div>
 
@@ -38,6 +42,10 @@
 <div class="pro flex flex-align-center">
                   <span>{{item.date | splittimer}}</span>
                   <span>浏览量: {{item.view}}</span>
+                  <span @click="Collection" class="Collection flex flex-align-center">
+                    <img src="./shoucang.png" alt="">
+                    收藏
+                  </span>
                 </div>
             </div>
 <!-- 一张图 -->
@@ -55,6 +63,10 @@
 <div class="pro flex flex-align-center">
                   <span>{{item.date | splittimer}}</span>
                   <span>浏览量: {{item.view}}</span>
+                  <span @click="Collection" class="Collection flex flex-align-center">
+                    <img src="./shoucang.png" alt="">
+                    收藏
+                  </span>
                 </div>
             </div>
 
@@ -67,6 +79,10 @@
               <div class="pro flex flex-align-center">
                   <span>{{item.date | splittimer}}</span>
                   <span>浏览量: {{item.view}}</span>
+                  <span @click="Collection" class="Collection flex flex-align-center">
+                    <img src="./shoucang.png" alt="">
+                    收藏
+                  </span>
                 </div>
             </div>
         </li>
@@ -88,6 +104,9 @@ export default {
     }
   },
   methods: {
+    Collection (val) {
+      // alert(1)
+    },
     linkrouter (val) {
       if (val.type === article) {
         this.$router.push({
@@ -139,6 +158,12 @@ export default {
 .h5audioimg img{
   width:50/@rem;
   margin-right:20/@rem;
+}
+.Collection{
+  img{
+    width:20/@rem;
+    margin-right:6/@rem;
+  }
 }
 li {
   .pongge{

@@ -11,20 +11,15 @@ import search from '@/components/search/search'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
+  beforeEnter (to, from, next) {
+    console.log(to)
+  },
   routes: [
     {
       path: '/recommend', // 首页
       name: 'recommend',
       component: recommend,
-      beforeEnter (to, from, next) {
-        // 如果没有id跳往推荐页面
-        if (!to.query.id) {
-          next('/recommend?id=0')
-        } else {
-          next()
-        }
-      },
       meta: {
         keepAlive: true
       }
@@ -74,3 +69,12 @@ export default new Router({
     }
   ]
 })
+router.beforeEach((to, from, next) => {
+  // 解决路由导航为'/recommend'没有id的问题
+  if (to.name === 'recommend' && !to.query.id) {
+    next('/recommend?id=0')
+  } else {
+    next()
+  }
+})
+export default router
