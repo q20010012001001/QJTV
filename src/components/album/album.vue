@@ -24,7 +24,7 @@ export default {
     articleData () {
       albumAxios(this.$route.query.id).then(res => {
         this.data = res.data.data
-        console.log(res.data.data)
+        console.log('提交了去' + res.data.data)
       })
     }
   },
