@@ -6,7 +6,7 @@
         </div>
         <div class="touxiangguanzhu flex flex-align-center flex-pack-justify">
             <div @click="userrouter" class="touxiang flex flex-align-center">
-                <img :src="userdataa.img" alt="">
+                <touxiangimg :img="userdataa.img"></touxiangimg>
                 <div class="flex flex-v">
                     <span class="">{{data.from}}</span>
                     <span>{{data.time | timefil}}</span>
@@ -21,11 +21,13 @@
 
 <script>
 import {userdetailAxios} from '@/api/user.js'
+import touxiangimg from '@/base/detail-touxiang/detail-touxiang.vue'
 import headerhistory from '@/base/headerhistroy/headerhistroy.vue'
 export default {
   props: ['data'],
   components: {
-    headerhistory
+    headerhistory,
+    touxiangimg
   },
   data () {
     return {
@@ -79,11 +81,7 @@ export default {
     color:#222121;
 font-size:24/@rem;
     img{
-        margin-right:20/@rem;
-        width:52/@rem;
-        height:52/@rem;
-        display:inline-block;
-        border-radius:50%;
+
     }
 }
 }

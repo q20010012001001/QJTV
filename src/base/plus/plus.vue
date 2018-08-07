@@ -53,7 +53,6 @@ export default {
         this.navdata.other.push(op[0])
       }
       this.merthodskk(this.navdata)
-      console.log(JSON.parse(localStorage.getItem('vuex')))
     }
 
   }
