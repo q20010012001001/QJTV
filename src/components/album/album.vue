@@ -40,6 +40,7 @@ export default {
   },
   methods: {
     articleData () {
+      console.log(1)
       albumAxios(this.$route.query.id).then(res => {
         this.data = res.data.data
       })
