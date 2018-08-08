@@ -1,7 +1,7 @@
 <template>
     <section class="getcate">
         <ul class="flex flex-pack-justify">
-            <li class="flex flex-v" v-for="(item,index) in getcatelist" :key="index">
+            <li @click="getcate(item)" class="flex flex-v" v-for="(item,index) in getcatelist" :key="index">
                 <div class="img">
                     <img :src="item.img" alt="">
                 </div>
@@ -18,6 +18,18 @@ export default {
   props: {
     getcatelist: {
       type: Array
+    }
+  },
+  methods: {
+    getcate (item) {
+      this.$router.push({
+        name: 'recommend',
+        query: {
+          id: item.id,
+          from: 'getcate',
+          title: item.title
+        }
+      })
     }
   }
 }

@@ -1,10 +1,19 @@
 <template>
     <section class="article">
-      <common :data="data">
+      <common class="artiscommmon" :data="data">
         <div class="Content Article">
-          <div class="content" v-html="data.content" ></div>
+          <div
+           ref="content"
+            class="content"
+             v-html="data.content"
+              @click="contnetimgclick" ></div>
         </div>
       </common>
+      <detailImg
+        v-if="data.content"
+         :imglist="data.content"
+          @showishide="showishide"
+           ref="detailimg" :class="{pospops:booelhide,po:true}"></detailImg>
     </section>
 </template>
 
@@ -12,21 +21,37 @@
 // import scroll from '@/base/scrll/scroll.vue'
 import {articleAxios} from '@/api/detailend'
 import common from '@/base/detaillist/common.vue'
+import detailImg from '@/base/detaillist/detail-img.vue'
 
 export default {
   data () {
     return {
-      data: []
+      data: [],
+      imglist: [],
+      booelhide: false
+
     }
   },
   components: {
-    common
+    common,
+    detailImg
   },
   methods: {
+
+    // 点击内容中的图片显示图册
+    contnetimgclick (e) {
+      if (e.target.nodeName === 'IMG') {
+        this.booelhide = true
+      }
+    },
+
     articleData () {
       articleAxios(this.$route.query.id).then(res => {
         this.data = res.data.data
       })
+    },
+    showishide (val) {
+      this.booelhide = val
     }
   },
   created () {
@@ -37,6 +62,18 @@ export default {
 
 <style lang="less" scoped>
 @import '~common/less/common.less';
+.pospops{
+  z-index:3 !important;
+  visibility: inherit !important;
+}
+.po{
+    z-index: -1;
+    visibility: hidden;
+}
+.artiscommmon{
+  z-index:2;
+  background:#fff;
+}
 .article{
     width:100%;
     max-width:100%;

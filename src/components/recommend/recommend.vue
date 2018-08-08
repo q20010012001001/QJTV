@@ -1,7 +1,12 @@
 <template>
   <div>
-    <hheader @serachclick="serachclick"></hheader>
-    <hnav></hnav>
+    <div v-if="getcate">
+      <hheader @serachclick="serachclick"></hheader>
+      <hnav></hnav>
+    </div>
+    <div v-else>
+        <header-history :headertext="$route.query.title"></header-history>
+      </div>
 
     <scroll
      ref="scroll"
@@ -11,7 +16,7 @@
          :pullDownRefresh="pullDownRefresh"
           :probeType="probeType"
            @pullingUp="pullingUp"
-            @pullingDown="pullingDown" >
+            @pullingDown="pullingDown" :class="{getcate:!getcate}" >
 
       <div>
 
@@ -38,6 +43,7 @@ import getcate from 'base/getcate/getcate'
 import scroll from 'base/scroll/scroll'
 import {getListData} from 'api/recommend'
 import loading from 'base/loading/loading.vue'
+import headerHistory from 'base/headerhistroy/headerhistroy.vue'
 // import {mapState} from 'vuex'
 export default {
   components: {
@@ -47,7 +53,8 @@ export default {
     hlist,
     hheader,
     hnav,
-    getcate
+    getcate,
+    headerHistory
   },
   data () {
     return {
@@ -64,7 +71,8 @@ export default {
       listdata: [],
       focus: [],
       state: true,
-      currentDeffer: false
+      currentDeffer: false,
+      getcate: true // 判断是否来自点播点击去的列表页
     }
   },
   methods: {
@@ -92,6 +100,7 @@ export default {
 
     // 加载数据或刷新数据 true为刷新数据,不传或false为加载数据
     getlist (booelan) {
+      this.getcatemeth() // 判断是否替换头部导航
       if (booelan) { // 是刷新数据还是加载数据
         this.state = true
         this.page = 1
@@ -136,6 +145,15 @@ export default {
     },
     scrollpos (pos) {
       this.scrollY = pos.y
+    },
+
+    // 判断是否是点播,进而隐藏头部
+    getcatemeth () {
+      if (this.$route.query.from) {
+        this.getcate = false
+      } else {
+        this.getcate = true
+      }
     }
   },
   created () {
@@ -153,6 +171,15 @@ export default {
       }
     }
   }
+  // beforeRouteUpdate (to, from, next) {
+  // 如果导航有getcate说明来自点播替换头部
+  // if (from.name === 'recommend' && this.$route.query.from === 'getcate') {
+  //   this.getcate = false
+  //   next()
+  // } else {
+  //   next()
+  // }
+  // }
 }
 </script>
 
@@ -166,6 +193,9 @@ export default {
   top:150/@rem;
   width:100%;
   bottom:0;
+  &.getcate{
+    top:80/@rem;
+  }
 }
 body,html{
   height:100%;
