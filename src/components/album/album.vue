@@ -79,6 +79,7 @@ export default {
 
     // 请求图片与作者头像数据
     articleData () {
+      console.log(1)
       albumAxios(this.$route.query.id).then(res => {
         this.data = res.data.data
       })
