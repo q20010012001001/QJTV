@@ -55,11 +55,21 @@ export default {
       })
 
       // 计算图片所有总宽度
-      let zongwidth = doucmentwidth * (len.length + 2)
+      let zongwidth = doucmentwidth
+      if (len.length > 1) { // 防止只有一张图片的情况
+        zongwidth = zongwidth * (len.length + 2)
+      }
       for (let i = 0; i < len.length; i++) {
         len[i].style.width = `${doucmentwidth}px`
       }
       this.$refs.content.style.width = `${zongwidth}px`
+    },
+
+    goToPage (index) {
+      this.slider && this.slider.goToPage(index, 0, 0)
+      this.$emit('currentfun', {
+        currentIndex: index
+      })
     }
   },
   mounted () {

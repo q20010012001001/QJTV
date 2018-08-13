@@ -41,10 +41,12 @@ import hbanner from 'base/banner/banner'
 import hlist from 'base/list/list'
 import getcate from 'base/getcate/getcate'
 import scroll from 'base/scroll/scroll'
-import {getListData} from 'api/recommend'
+// import {getListData} from 'api/recommend'
 import loading from 'base/loading/loading.vue'
 import headerHistory from 'base/headerhistroy/headerhistroy.vue'
 // import {mapState} from 'vuex'
+import axios from 'axios'
+import oos from 'common/js/commonApi'
 export default {
   components: {
     loading,
@@ -72,10 +74,17 @@ export default {
       focus: [],
       state: true,
       currentDeffer: false,
-      getcate: true // 判断是否来自点播点击去的列表页
+      getcate: true, // 判断是否来自点播点击去的列表页
+      source: null
     }
   },
   methods: {
+
+    cancelQuest () {
+      if (typeof this.source === 'function') {
+        this.source('终止请求') // 取消请求
+      }
+    },
 
     listscrollrefsh () {
       this.$refs.scroll.refresh()
@@ -100,6 +109,8 @@ export default {
 
     // 加载数据或刷新数据 true为刷新数据,不传或false为加载数据
     getlist (booelan) {
+      this.cancelQuest()
+
       this.getcatemeth() // 判断是否替换头部导航
       if (booelan) { // 是刷新数据还是加载数据
         this.state = true
@@ -117,30 +128,37 @@ export default {
         }
         return
       }
-      getListData({
-        id: this.$route.query.id,
-        page: this.page
-      }).then(data => {
-        setTimeout(() => {
-          let res = data.data
-          if (res.data.length < 20) {
-            this.state = false
-          }
 
-          if (res.focus) {
-            this.focus = res.focus
-          }
-          this.listdata = this.listdata.concat(res.data)
-          this.page++
-          this.$nextTick(() => {
-            if (booelan) {
-              this.$refs.scroll.finishPullDown()
-            } else {
-              this.$refs.scroll.finishPullUp()
-            }
-            this.$refs.scroll.refresh()
-          })
-        }, 200)
+      let url = '/api/server'
+      let cmd = 'getnewslist'
+      let cid = this.$route.query.id
+      let page = this.page
+      if (!parseInt(cid)) { // 判断是推荐数据还是其他数据
+        cmd = 'gethomelist'
+        cid = ''
+      } else if (cid === '321200') {
+        cmd = 'getcate'
+      } else if (cid === '33') {
+        cmd = 'getlivelist'
+        cid = null
+      }
+      let _this = this
+      let dataobj = Object.assign({}, {
+        cmd: cmd,
+        id: cid,
+        page: page
+      }, oos)
+      axios.get(url, {
+        params: dataobj,
+        cancelToken: new axios.CancelToken(function executor (c) {
+          _this.source = c
+        })
+      }).then(data => {
+        this.ajaxdatayh(booelan, data)
+      }, (err) => {
+        if (axios.isCancel(err)) {
+          console.log('Rquest canceled', err.message) // 请求如果被取消，这里是返回取消的message
+        }
       })
     },
     scrollpos (pos) {
@@ -154,6 +172,28 @@ export default {
       } else {
         this.getcate = true
       }
+    },
+
+    // 获取列表数据后处理逻辑
+    ajaxdatayh (booelan, data) {
+      let res = data.data
+      if (res.data.length < 20) {
+        this.state = false
+      }
+
+      if (res.focus) {
+        this.focus = res.focus
+      }
+      this.listdata = this.listdata.concat(res.data)
+      this.page++
+      this.$nextTick(() => {
+        if (booelan) {
+          this.$refs.scroll.finishPullDown()
+        } else {
+          this.$refs.scroll.finishPullUp()
+        }
+        this.$refs.scroll.refresh()
+      })
     }
   },
   created () {

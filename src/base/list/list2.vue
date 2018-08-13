@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-        <li v-for="(item,index) in tuijianlist" :key="index">
+        <li :class="{active:sessionlist.includes(item.id)}" v-for="(item,index) in tuijianlist" :key="index">
                       <!-- 没图 -->
           <div v-if="(item.type == 1&& !item.imgs[0].img)" class="noImage">
             <div @click="linkrouter(item)" class="title flex flex-align-center">
@@ -90,181 +90,25 @@
 </template>
 
 <script>
-const video = 0 // 视频
-const article = 1 // 图文
-const album = 2 // 图集
-const audio = 3 // 音频
-const advertisement = 4 // 广告
+import mixin from '@/common/js/list.js'
 export default {
-  props: ['tuijianlist'],
   name: 'list2',
-  filters: {
-    splittimer (val) {
-      return val.split(' ')[0]
-    }
-  },
+  mixins: [mixin],
   methods: {
     Collection (val) {
       // alert(1)
-    },
-    linkrouter (val) {
-      if (val.type === article) {
-        this.$router.push({
-          name: 'article',
-          query: {
-            id: val.id,
-            uid: val.uid
-          }
-        })
-      } else if (val.type === video) {
-        this.$router.push({
-          name: 'video',
-          query: {
-            id: val.id,
-            uid: val.uid
-          }
-        })
-      } else if (val.type === album) {
-        this.$router.push({
-          name: 'album',
-          query: {
-            id: val.id,
-            uid: val.uid
-          }
-        })
-      } else if (val.type === audio) {
-        this.$router.push({
-          name: 'audio',
-          query: {
-            id: val.id,
-            uid: val.uid
-          }
-        })
-      } else if (val.type === advertisement) {
-        location.href = val.url
-      }
     }
-  },
-  mounted () {
-    setTimeout(() => {
-      this.$emit('listscrollrefsh')
-    }, 20)
+
   }
 }
 </script>
 
 <style lang="less" scoped>
-@import "~common/less/common.less";
-.h5audioimg img{
-  width:50/@rem;
-  margin-right:20/@rem;
-}
+@import "~common/less/list.less";
 .Collection{
   img{
     width:20/@rem;
     margin-right:6/@rem;
   }
-}
-li {
-  .pongge{
-    .pongeImg{
-      width:100%;
-      position:relative;
-      margin-top:20/@rem;
-      .write{
-        left:0;
-        right:0;
-        bottom:0;
-        top:0;margin:auto;
-        width:68/@rem;
-        height:68/@rem;
-      }
-      img{
-        height:450/@rem;
-        display:inline-block;
-      }
-    }
-  }
-  padding: 28 / @rem 0;
-  margin: 0 30 / @rem;
-  border-bottom: 1px solid #d1d1d1;
-  .title {
-    font-size: 40 / @rem;
-  }
-  .write{
-        background:url('./icon_video_half2.png') no-repeat;
-        background-size:cover;
-        width:52/@rem;
-        height:52/@rem;
-        display:inline-block;
-        position:absolute;
-        right:15/@rem;
-        bottom:20/@rem;
-      }
-  .pro {
-    margin-top: 20 / @rem;
-    span {
-      margin-right: 20 / @rem;
-    }
-    .img {
-      img {
-        width: 40 / @rem;
-        border-radius: 50%;
-        margin-right: 10 / @rem;
-      }
-    }
-  }
-  .imgpro {
-    margin-left: 20 / @rem;
-    position:relative;
-    width: 200 / @rem;
-      height: 128 / @rem;
-    img {
-      width: 200 / @rem;
-      height: 128 / @rem;
-    }
-  }
-  .treeImage{
-    .treeimg{
-      position:relative;
-      margin-top:20/@rem;
-      div img{
-        width:225/@rem;
-        height:154/@rem;
-      }
-
-    }
-  }
-  .twoImage{
-    .twoimg{
-      position:relative;
-      margin-top:20/@rem;
-      div{
-        &:nth-of-type(1){
-          margin-right:10/@rem;
-        }
-      }
-      div img{
-        width:100%;
-        height:180/@rem;
-      }
-      .write{
-        background:url('./icon_video_half2.png') no-repeat;
-        background-size:cover;
-        width:52/@rem;
-        height:52/@rem;
-        display:inline-block;
-        position:absolute;
-        right:20/@rem;
-        bottom:20/@rem;
-      }
-    }
-  }
-}
-[data-dpr="3"] li {
-  border-bottom: 3px solid #d1d1d1;
-}
-[data-dpr="2"] li {
-  border-bottom: 2px solid #d1d1d1;
 }
 </style>

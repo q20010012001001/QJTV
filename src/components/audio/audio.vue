@@ -76,4 +76,7 @@ audio{
     .slide-enter, .slide-leave-to{
     transform: translate3d(100%, 0, 0)
     }
+    .desc{
+      padding:0 30/@rem;
+    }
 </style>

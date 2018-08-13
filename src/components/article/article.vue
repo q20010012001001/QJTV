@@ -5,7 +5,7 @@
           <div
            ref="content"
             class="content"
-             v-html="data.content"
+             v-html="contentfilters(data.content)"
               @click="contnetimgclick" ></div>
         </div>
       </common>
@@ -27,8 +27,9 @@ export default {
   data () {
     return {
       data: [],
-      imglist: [],
-      booelhide: false
+      // imglist: [],
+      booelhide: false,
+      imgIndex: 0
 
     }
   },
@@ -38,9 +39,27 @@ export default {
   },
   methods: {
 
+    // v-html不能用过滤器,用方法过滤吧
+    contentfilters (val) {
+      if (typeof val !== 'undefined') {
+
+      }
+      return val
+    },
+
     // 点击内容中的图片显示图册
     contnetimgclick (e) {
+      let imglistarr = []
+      this.data.content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, (a, b) => {
+        imglistarr.push(b)
+      })
       if (e.target.nodeName === 'IMG') {
+        let url = e.target.src
+        imglistarr.map((val, index) => {
+          if (val === url) {
+            this.$refs.detailimg.goToPage(index)
+          }
+        })
         this.booelhide = true
       }
     },

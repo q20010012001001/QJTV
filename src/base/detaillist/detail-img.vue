@@ -43,6 +43,10 @@ export default {
   },
   methods: {
 
+    goToPage (index) {
+      this.$refs.albumlist.goToPage(index)
+    },
+
     //   点击浏览图片差号隐藏
     hide () {
       this.$emit('showishide', false)
