@@ -16,8 +16,8 @@ module.exports = {
         secure: false, //默认情况下，不接受运行在 HTTPS 上，且使用了无效证书的后端服务器
         changeOrigin: true, //是否跨域
       },
-      '/search':{
-        target:'http://www.quanjiaotv.com/json/LoadSearchList.do?size=10&search=%E5%85%A8%E6%A4%92&offset=0',
+      '/searcha':{
+        target:'http://www.quanjiaotv.com/search.do',
         changeOrigin:true
       }
     },

@@ -64,7 +64,15 @@ export default {
     },
 
     // 作者发布的新闻列表
-    userlistData () {
+    userlistData (page) {
+      if (page) { // 重新请求数据
+        this.page = 1
+        this.userlist = []
+        this.userdetail = {}
+        this.scrollY = 0
+        this.state = true
+        this.openkey = false
+      }
       if (this.openkey || !this.state) { return }
       this.openkey = true
       userlistAxios(this.$route.query.uid, this.page).then(res => {
@@ -101,12 +109,15 @@ export default {
         threshold: 200
       },
       page: 1,
-      state: true
+      state: true,
+      uid: false // 用于记录用户uid
     }
   },
   created () {
-    this.userlistData()
-    this.userdetailData()
+    // this.uid = this.$route.query.uid
+
+    // this.userlistData()
+    // this.userdetailData()
   },
   components: {
     listtwo,
@@ -114,26 +125,19 @@ export default {
     scroll,
     loading
   },
-  watch: {
-    $route (to, form, next) {
-      // this.page = 1
-      // this.userlistData()
-      // this.userdetailData()
-      // this.$refs.scroll.scrollTo(0, 0)
-      // if (to.name === 'userlist' && form.name === 'article') {
-      //   console.log(1111)
-      // }
-      // if (to.name === 'userlist' && (form.name === 'article' || form.name === 'video' || form.name === 'audio' || form.name === 'album')) {
-      //   this.$refs.scroll.refresh()
-      //   this.$refs.scroll.scrollTo(0, this.scrollY)
-      // } else {
-      //   this.$refs.scroll.scrollTo(0, 0)
-      // }
+  activated () {
+    let queryuid = parseInt(this.$route.query.uid)
+    if (this.uid !== queryuid) {
+      this.uid = queryuid
+      this.userlistData(true)
+      this.userdetailData()
+    } else {
+      this.uid = queryuid
+      this.$refs.scroll.refresh()
+      this.$refs.scroll.scrollTo(0, this.scrollY)
     }
-  },
-  beforeRouteLeave (to, from, next) {
-    next()
   }
+
 }
 </script>
 

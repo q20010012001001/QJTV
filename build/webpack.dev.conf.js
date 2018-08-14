@@ -13,6 +13,11 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+const axios = require('axios');
+const express = require('express');
+const apiRoutes = express.Router();
+const app = express();
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -22,6 +27,23 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+    before(apiRoutes){
+      apiRoutes.get('/getSearchList',(req,res)=>{
+        const url = 'http://www.quanjiaotv.com/json/LoadSearchList.do'
+        axios.get(url,{
+          headers:{
+            referer:'http://www.quanjiaotv.com/search.do',
+            host:'www.quanjiaotv.com'
+          },
+          params:req.query
+        }).then((response) => {
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
+      app.use('/api',apiRoutes)
+    },
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [

@@ -109,9 +109,10 @@ export default {
 
     // 加载数据或刷新数据 true为刷新数据,不传或false为加载数据
     getlist (booelan) {
-      this.cancelQuest()
+      this.cancelQuest() // 终止请求
 
       this.getcatemeth() // 判断是否替换头部导航
+
       if (booelan) { // 是刷新数据还是加载数据
         this.state = true
         this.page = 1

@@ -50,9 +50,12 @@ const router = new Router({
       component: audio
     },
     {
-      path: '/userlist',
+      path: '/userlist', // 用户列表页
       name: 'userlist',
-      component: userlist
+      component: userlist,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/search',
