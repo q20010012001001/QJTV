@@ -60,7 +60,10 @@ const router = new Router({
     {
       path: '/search',
       name: 'search',
-      component: search
+      component: search,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/',

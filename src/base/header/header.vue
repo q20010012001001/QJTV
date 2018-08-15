@@ -1,16 +1,28 @@
 <template>
     <header class="flex flex-pack-justify flex-align-center">
-        <img src="http://www.quanjiaotv.com/images/quanjiao/m/logo.png" alt="">
-        <h1>全椒广播电视台</h1>
-        <img @click="searchclick" src="http://www.quanjiaotv.com/images/quanjiao/m/search.png" alt="">
+        <img @click="logoClick" src="./logo.png" alt="">
+        <h1>{{title}}</h1>
+        <img @click="searchclick" src="./search.png" alt="">
     </header>
 </template>
 
 <script>
+
 export default {
+  props: {
+    title: ''
+  },
+
   methods: {
     searchclick () {
-      this.$emit('serachclick')
+      this.$router.push({
+        name: 'search'
+      })
+    },
+    logoClick () {
+      this.$router.push({
+        path: '/'
+      })
     }
   }
 }

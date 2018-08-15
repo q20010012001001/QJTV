@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="getcate">
-      <hheader @serachclick="serachclick"></hheader>
+      <hheader :title="title"></hheader>
       <hnav></hnav>
     </div>
     <div v-else>
@@ -60,6 +60,7 @@ export default {
   },
   data () {
     return {
+      title: '全椒广播电视台',
       page: 1,
       scrollY: 0,
       probeType: 3,
@@ -73,7 +74,6 @@ export default {
       listdata: [],
       focus: [],
       state: true,
-      currentDeffer: false,
       getcate: true, // 判断是否来自点播点击去的列表页
       source: null
     }
@@ -90,13 +90,6 @@ export default {
       this.$refs.scroll.refresh()
     },
 
-    // search按钮点击
-    serachclick () {
-      this.$router.push({
-        name: 'search'
-      })
-    },
-
     // 下拉刷新
     pullingDown () {
       this.getlist(true)
@@ -109,19 +102,26 @@ export default {
 
     // 加载数据或刷新数据 true为刷新数据,不传或false为加载数据
     getlist (booelan) {
-      this.cancelQuest() // 终止请求
+      // 终止请求
+      this.cancelQuest()
 
-      this.getcatemeth() // 判断是否替换头部导航
+      // 判断是否替换头部导航
+      this.getcatemeth()
 
-      if (booelan) { // 是刷新数据还是加载数据
+      // 是刷新数据还是加载数据
+      if (booelan) {
         this.state = true
         this.page = 1
         this.listdata = this.focus = []
       }
-      if (!booelan && this.page === 2 && this.$route.query.id === '321200') { // 因为点播接口page为2会重复数据,所有对点播接口做限制
+
+      // 因为点播接口page为2会重复数据,所有对点播接口做限制
+      if (!booelan && this.page === 2 && this.$route.query.id === '321200') {
         this.state = false
       }
-      if (!this.state) { // 数据没有的时候为false
+
+      // 数据没有的时候为false
+      if (!this.state) {
         if (booelan) {
           this.$refs.scroll.finishPullDown()
         } else {
@@ -203,7 +203,7 @@ export default {
   watch: {
     $route (to, from, next) {
       // 如果列表页跳列表页,重新请求数据
-      if (to.name === 'recommend' && from.name === 'recommend') {
+      if ((to.name === 'recommend' && from.name === 'recommend')) {
         this.$refs.scroll.scrollTo(0, 0)
         this.getlist(true)
       } else if (from.name !== 'recommend') {
