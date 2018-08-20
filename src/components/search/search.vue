@@ -218,16 +218,26 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (from.name === 'video') {
+    if (from.name === 'video' || from.name === 'audio' || from.name === 'album' || from.name === 'article') {
       next(vm => {
+        vm.routername = from.query.id // 记录是从哪里进入搜索页面
         vm.$refs.scroll.refresh()
         vm.$refs.scroll.scrollTo(0, vm.scrollY)
       })
     } else {
       next(vm => {
+        vm.routername = from.query.id // 记录是从哪里进入搜索页面
         vm.$refs.scroll.scrollTo(0, 0)
         vm.searchajax(true)
       })
+    }
+  },
+  beforeRouteLeave (to, from, next) { // 解决点击logo跳转推荐不更新数据的问题
+    if (to.query.id !== this.routername && parseInt(to.query.id) === 0) {
+      to.meta.booelreferch = true
+      next()
+    } else {
+      next()
     }
   }
 }

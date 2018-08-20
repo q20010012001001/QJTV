@@ -3,8 +3,8 @@
         <loadingvue v-show="!showfalse"></loadingvue>
         <div v-show="showfalse">
           <headerdetail ref="header" :data="data"></headerdetail>
-          <slot></slot>
-          <tuijian ref="tuijian"></tuijian>
+            <slot></slot>
+            <tuijian ref="tuijian"></tuijian>
         </div>
     </div>
 </template>
@@ -51,7 +51,6 @@ export default {
   }
 }
 </script>
-
-<style>
+<style lang="less" scoped>
 
 </style>

@@ -1,7 +1,15 @@
 <template>
         <!-- 推荐数据 -->
         <div class="list">
-          <li :class="{active:sessionlist.includes(item.id)}" v-for="(item,index) in tuijianlist" :key="index">
+          <li
+           @touchstart="touchstartcloclr(index)"
+            :class="{
+              active:sessionlist.includes(item.id),
+              hoverbg:item.color
+              }"
+             v-for="(item,index) in tuijianlist"
+              :key="index"
+               @touchend="touchendcloclr(index)">
 
             <!-- 二张图 -->
                         <div v-if="index%3==0&&index!=0&&item.type==0" class="twoImage">
@@ -170,6 +178,17 @@ export default {
           uid: val
         }
       })
+    },
+
+    touchstartcloclr (index) {
+      let listset = this.tuijianlist[index]
+      listset.color = true
+      this.$set(this.tuijianlist, index, listset)
+    },
+    touchendcloclr (index) {
+      let listset = this.tuijianlist[index]
+      listset.color = false
+      this.$set(this.tuijianlist, index, listset)
     }
 
   }

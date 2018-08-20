@@ -6,17 +6,10 @@
       <headerhistory :headertext="`${userdetail.username}的个人主页`"></headerhistory>
       </div>
 
-      <div>
-      <scroll
-       @scrollpos="scrollpos"
-        class="posscroll"
-         :probeType="probeType"
-          ref="scroll"
-           @pullingUp="pullingUp"
-            :pullUpLoad="pullUpLoad">
+      <div class="usercontnet100">
 
       <!-- 头像背景头像 -->
-      <div class="backgroundurl flex flex-v flex-align-center" :style="{backgroundImage:'url('+(userdetail.bgimg?userdetail.bgimg:banseimg)+')'}">}
+      <div ref="bgurlimg" class="backgroundurl flex flex-v flex-align-center" :style="{backgroundImage:'url('+(userdetail.bgimg?userdetail.bgimg:banseimg)+')'}">}
         <div class="touxiang flex flex-pack-center">
           <div><img :src="userdetail.img" alt=""></div>
         </div>
@@ -29,6 +22,15 @@
         </div>
       </div>
 
+      <div ref="layer" class="layer"></div>
+
+<scroll
+       @scrollpos="scrollpos"
+        class="posscroll"
+         :probeType="probeType"
+          ref="scroll"
+           @pullingUp="pullingUp"
+            :pullUpLoad="pullUpLoad">
       <div class="scrolldiv">
 
         <!-- 它的发布标题 -->
@@ -54,6 +56,9 @@ import headerhistory from '@/base/headerhistroy/headerhistroy.vue'
 import scroll from '@/base/scroll/scroll.vue'
 import listtwo from '@/base/list/list2.vue'
 import loading from 'base/loading/loading.vue'
+import {prefixStyle} from '@/common/js/dom.js'
+
+const transform = prefixStyle('transform')
 export default {
   methods: {
     pullingUp () {
@@ -113,17 +118,26 @@ export default {
       uid: false // 用于记录用户uid
     }
   },
-  created () {
-    // this.uid = this.$route.query.uid
-
-    // this.userlistData()
-    // this.userdetailData()
+  mounted () {
+    this.bgimgClientHeight = this.$refs.bgurlimg.clientHeight
   },
   components: {
     listtwo,
     headerhistory,
     scroll,
     loading
+  },
+  watch: {
+    scrollY (pos) {
+      let scale = 1
+      let filterpos = Math.max(-this.bgimgClientHeight, pos)
+      let percent = Math.abs(pos / this.bgimgClientHeight)
+      if (pos > 0) {
+        scale = 1 + percent
+      }
+      this.$refs.layer.style[transform] = `translate(0,${filterpos}px)`
+      this.$refs.bgurlimg.style[transform] = `scale(${scale})`
+    }
   },
   activated () {
     let queryuid = parseInt(this.$route.query.uid)
@@ -143,6 +157,18 @@ export default {
 
 <style lang="less" scoped>
 @import '~common/less/common.less';
+.usercontnet100{
+  height:100%;
+}
+.userlist{
+  height:100%;
+  overflow:hidden;
+}
+.layer{
+  position:relative;
+  background:#fff;
+  height:100%;
+}
 .lol{
   margin-left:10/@rem;
   img{
@@ -151,15 +177,16 @@ export default {
 }
 .posscroll{
   position:fixed;
-  overflow: hidden;
+  // overflow: hidden;
   bottom:0;
-  top:80/@rem;
+  top:430/@rem;
   width:100%;
 }
 .headercomms{
   position:fixed;
   top:0;
   width:100%;
+  z-index:999;
 }
 .listtitletilsm{
   height:80/@rem;
@@ -177,7 +204,9 @@ export default {
 .backgroundurl{
   background-repeat: no-repeat;
   height:350/@rem;
+  margin-top:80/@rem;
   background-size:cover;
+      transform-origin: top;
 }
 .text {
   text-align: center;

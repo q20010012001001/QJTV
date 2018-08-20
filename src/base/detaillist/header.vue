@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="paddingtop80">
         <headerhistory :headertext="headertext"></headerhistory>
         <div class="title">
             <h1>{{data.title}}</h1>
@@ -74,6 +74,9 @@ export default {
 
 <style lang="less" scoped>
 @import '~common/less/common.less';
+.paddingtop80{
+  padding-top:80/@rem;
+}
 .touxiangguanzhu{
     padding:10/@rem 30/@rem;
 .touxiang{

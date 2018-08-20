@@ -2,7 +2,7 @@
   <div>
     <div v-if="getcate">
       <hheader :title="title"></hheader>
-      <hnav></hnav>
+      <hnav ref="hnav"></hnav>
     </div>
     <div v-else>
         <header-history :headertext="$route.query.title"></header-history>
@@ -210,17 +210,22 @@ export default {
         this.$refs.scroll.refresh()
         this.$refs.scroll.scrollTo(0, this.scrollY)
       }
+
+      // 为解决点击logo跳转首页而导航条不跟随的问题(当跳转到首页推荐的时候更新导航条)
+      if (to.name === 'recommend' && to.query.id === '0') {
+        this.$refs.hnav.navsliderNew()
+      }
     }
+  },
+  beforeRouteEnter (to, from, next) { // 如果有booelreferch或来自search路由重新获取数据
+    next((vm) => {
+      if (from.name === 'search' && vm.$route.meta.booelreferch) {
+        vm.$route.meta.booelreferch = false
+        vm.$refs.scroll.scrollTo(0, 0)
+        vm.getlist(true)
+      }
+    })
   }
-  // beforeRouteUpdate (to, from, next) {
-  // 如果导航有getcate说明来自点播替换头部
-  // if (from.name === 'recommend' && this.$route.query.from === 'getcate') {
-  //   this.getcate = false
-  //   next()
-  // } else {
-  //   next()
-  // }
-  // }
 }
 </script>
 

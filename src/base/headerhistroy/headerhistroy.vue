@@ -25,10 +25,16 @@ export default {
     color:#fff;
 }
 .header{
-    position:relative;
+    position:fixed;
     height:80/@rem;
+    top:0;
+  left:0;
+  width:100%;
     background: #f00;
     padding:0 40/@rem;
+  z-index:999;
+      box-sizing: border-box;
+
     img{
     //         width:22/@rem;
     // display:inline-block;

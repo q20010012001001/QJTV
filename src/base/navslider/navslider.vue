@@ -33,8 +33,8 @@ export default {
     _indexnav () {
       this.$nextTick(() => {
         let index = this._navinitoffset()
-        this.slider.refresh()
-        this.slider.scrollToElement(this.$refs.content.children[index], 0)
+        this.slider && this.slider.refresh()
+        this.slider && this.slider.scrollToElement(this.$refs.content.children[index], 0)
       })
     },
 

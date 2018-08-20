@@ -18,6 +18,7 @@ export default {
   data () {
     return {
       currentIndex: 0
+      // showimgf: false
     }
   },
   props: ['data'],
@@ -82,6 +83,7 @@ export default {
     setTimeout(() => {
       this.contentinitwidth()
       this.betterscrollinit()
+      // this.showimgf = true
       this._play()
     }, 20)
   }

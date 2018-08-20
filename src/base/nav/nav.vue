@@ -6,7 +6,18 @@
   </router-link>
   <div class="fl">
     <naslider ref="naslider" :datanav="datanav.default">
-      <router-link :to="{path:'/recommend',query:{id:item.id}}" :datakey="item.id" class="flex flex-align-center" tag="li"  v-for="(item,index) in datanav.default" :key="index">{{item.title}}</router-link>
+      <!-- <li
+       :datakey="item.id"
+        class="flex flex-align-center"
+         v-for="(item,index) in datanav.default"
+          :key="index" @click="navclick(item.id)">{{item.title}}</li> -->
+      <router-link
+       :to="{path:'/recommend',query:{id:item.id}}"
+        :datakey="item.id"
+         class="flex flex-align-center"
+          tag="li"
+            v-for="(item,index) in datanav.default"
+             :key="index">{{item.title}}</router-link>
     </naslider>
   </div>
 </nav>
@@ -26,6 +37,19 @@ export default {
     }
   },
   methods: {
+    // navclick (itmeId) {
+    //   console.log(1)
+    //   // this.$router.push({
+    //   //   path: '/recommend',
+    //   //   query: {
+    //   //     id: itmeId
+    //   //   }
+    //   // })
+    // },
+    // 更新导航滚动位置
+    navsliderNew () {
+      this.$refs.naslider._indexnav()
+    },
 
     ...mapMutations({
       navsinger: 'NAVDATA'

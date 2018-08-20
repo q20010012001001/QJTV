@@ -51,8 +51,9 @@ export default {
     width:100%;
     overflow:hidden;
     // height:4.9rem;
+    // height:4.9rem;
     position:relative;
-
+    max-height:4.9rem;
     li{
 
         float: left;

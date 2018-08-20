@@ -75,6 +75,20 @@ const router = new Router({
     }
   ]
 })
+
+let obj = {
+  'search': '搜索',
+  'userlist': '用户列表',
+  'audio': '音乐',
+  'video': '视频',
+  'album': '图集',
+  'article': '图文',
+  'plus': '选择',
+  'recommend': '新闻列表'
+}
+router.afterEach((to, from, next) => {
+  window.document.title = obj[to.name]
+})
 router.beforeEach((to, from, next) => {
   // 解决路由导航为'/recommend'没有id的问题
   if (to.name === 'recommend' && !to.query.id) {

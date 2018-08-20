@@ -25,6 +25,10 @@ export default {
     probeType: {
       type: Number,
       default: 0
+    },
+    bounceTop: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -43,7 +47,11 @@ export default {
         click: true,
         probeType: this.probeType,
         pullDownRefresh: this.pullDownRefresh,
-        pullUpLoad: this.pullUpLoad
+        pullUpLoad: this.pullUpLoad,
+        bounce: {
+          bottom: false,
+          top: this.bounceTop
+        }
       })
 
       let me = this

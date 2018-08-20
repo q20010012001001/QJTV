@@ -1,6 +1,6 @@
 <template>
     <section class="article">
-      <common class="artiscommmon" :data="data">
+      <common v-show="!booelhide" class="artiscommmon" :data="data">
         <div class="Content Article">
           <div
            ref="content"
@@ -9,6 +9,7 @@
               @click="contnetimgclick" ></div>
         </div>
       </common>
+
       <detailImg
         v-if="data.content"
          :imglist="data.content"
@@ -18,7 +19,6 @@
 </template>
 
 <script>
-// import scroll from '@/base/scrll/scroll.vue'
 import {articleAxios} from '@/api/detailend'
 import common from '@/base/detaillist/common.vue'
 import detailImg from '@/base/detaillist/detail-img.vue'
