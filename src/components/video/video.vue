@@ -41,6 +41,13 @@ export default {
   },
   created () {
     this.videoData()
+  },
+  watch: {
+    $route (to, from) {
+      if (to.name === 'video' && from.name === 'video') {
+        this.videoData()
+      }
+    }
   }
 }
 </script>
@@ -54,9 +61,13 @@ export default {
 //   width:100%;
 //   height:100%;
 // }
-.desc span, .desc p, .desc div, .desc header, .desc article,.desc {
-    font-size: 0.5rem !important;
-    line-height: 1.5em !important;
+
+.desc{
+  & /deep/ font,& /deep/ p,& /deep/ div,& /deep/ span,& /deep/ header,& /deep/ article,& /deep/{
+    font-size:32/@rem !important;
+    line-height: 2em !important;
+  }
+
 }
 .videoContent{
   padding:0 30/@rem;

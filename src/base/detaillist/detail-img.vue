@@ -1,6 +1,6 @@
 <template>
     <div class="albumsks">
-        <span @click.stop.prevent="hide" class="hide"><img src="./chaohao.png" alt=""></span>
+        <span @click.stop.prevent="hide" class="hide"><img src="@/common/image/chaohao.png" alt=""></span>
         <album-list
          @duratfun="duratfun2"
           @currentfun="currentfun2"

@@ -63,6 +63,17 @@ export default {
       } else if (parseInt(val.type) === advertisement) { // 链接
         location.href = val.url
       }
+    },
+    // 点击新闻背景色变化(touchstart,touchend)
+    touchstartcloclr (index) {
+      let listset = this.tuijianlist[index]
+      listset.color = true
+      this.$set(this.tuijianlist, index, listset)
+    },
+    touchendcloclr (index) {
+      let listset = this.tuijianlist[index]
+      listset.color = false
+      this.$set(this.tuijianlist, index, listset)
     }
   }
 }

@@ -84,17 +84,17 @@ ul{
     }
     ul li{
         text-align: center;
-        margin-right:20/@rem;
+        margin-right:2%;
         &:nth-of-type(4n+0){
             margin-right:0
         }
-        width:156/@rem;
+        width:23%;
         float: left;
         background: #fff;
         color:#000;
         font-size:30/@rem;
         margin-bottom:20/@rem;
-        padding:14/@rem 20/@rem;
+        padding:14/@rem 10/@rem;
     }
 .true,.false{
     margin-bottom:40/@rem;

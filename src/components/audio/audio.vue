@@ -9,6 +9,7 @@
             <div class="desc" v-html="audio.desc"></div>
           </div>
           <tuijian ref="tuijian"></tuijian>
+          <bottom-download></bottom-download>
         </div>
 
     </section>
@@ -20,6 +21,8 @@ import loadingvue from '@/base/loading/loading.vue'
 import headerdetail from '@/base/detaillist/header.vue'
 import tuijian from '@/base/detaillist/tuijian.vue'
 import audiode from '@/base/audio/audio.vue'
+import bottomDownload from '@/base/download/bottom2-download.vue'
+
 export default {
   name: 'audioDetail',
   data () {
@@ -32,7 +35,8 @@ export default {
     loadingvue,
     headerdetail,
     tuijian,
-    audiode
+    audiode,
+    bottomDownload
   },
   methods: {
     audioData () {

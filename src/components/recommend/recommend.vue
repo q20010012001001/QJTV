@@ -31,6 +31,8 @@
       </div>
 
     </scroll>
+
+    <bottom-download></bottom-download>
   </div>
 </template>
 
@@ -41,12 +43,11 @@ import hbanner from 'base/banner/banner'
 import hlist from 'base/list/list'
 import getcate from 'base/getcate/getcate'
 import scroll from 'base/scroll/scroll'
-// import {getListData} from 'api/recommend'
 import loading from 'base/loading/loading.vue'
 import headerHistory from 'base/headerhistroy/headerhistroy.vue'
-// import {mapState} from 'vuex'
 import axios from 'axios'
 import oos from 'common/js/commonApi'
+import bottomDownload from '@/base/download/bottom-download.vue'
 export default {
   components: {
     loading,
@@ -56,7 +57,8 @@ export default {
     hheader,
     hnav,
     getcate,
-    headerHistory
+    headerHistory,
+    bottomDownload
   },
   data () {
     return {

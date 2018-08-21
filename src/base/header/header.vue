@@ -1,6 +1,6 @@
 <template>
     <header class="flex flex-pack-justify flex-align-center">
-        <img @click="logoClick" src="./logo.png" alt="">
+        <img @click="logoClick" src="@/common/image/logo.png" alt="">
         <h1>{{title}}</h1>
         <img @click="searchclick" src="./search.png" alt="">
     </header>

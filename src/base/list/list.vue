@@ -18,9 +18,13 @@
                   {{item.title}}
                 </div>
                 <div class="twoimg flex-pack-justify flex">
-                  <div class="flex-1"><img v-lazy="item.arrimg[0]" alt=""></div>
                   <div class="flex-1">
-                    <img v-lazy="item.arrimg[1]" alt="">
+                      <img v-if="isdetailBollean" :src="item.arrimg[0]" alt="">
+                      <img v-if="!isdetailBollean" v-lazy="item.arrimg[0]" alt="">
+                  </div>
+                  <div class="flex-1">
+                    <img v-if="isdetailBollean" :src="item.arrimg[1]" alt="">
+                    <img v-if="!isdetailBollean" v-lazy="item.arrimg[1]" alt="">
                     <span v-if="item.type === '0'" class="write"></span>
                   </div>
                 </div>
@@ -132,6 +136,11 @@ import mixin from '@/common/js/list.js'
 export default {
   name: 'list',
   mixins: [mixin],
+  data () {
+    return {
+      isdetailBollean: false
+    }
+  },
   watch: {
     tuijianlist (dataval) {
       let op = dataval
@@ -180,17 +189,19 @@ export default {
       })
     },
 
-    touchstartcloclr (index) {
-      let listset = this.tuijianlist[index]
-      listset.color = true
-      this.$set(this.tuijianlist, index, listset)
-    },
-    touchendcloclr (index) {
-      let listset = this.tuijianlist[index]
-      listset.color = false
-      this.$set(this.tuijianlist, index, listset)
+    // 判断是否是相关推荐要用
+    isdetail () {
+      let detailarr = ['article', 'audio', 'video']
+      if (detailarr.includes(this.$route.name)) {
+        this.isdetailBollean = true
+      } else {
+        this.isdetailBollean = false
+      }
     }
 
+  },
+  created () {
+    this.isdetail()
   }
 
 }

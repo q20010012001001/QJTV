@@ -1,7 +1,7 @@
 <template>
     <div>
         <h5>相关推荐</h5>
-        <list :tuijianlist="tuijian"></list>
+        <list :tuijianlist="filterdatatuijian"></list>
         <div class="linkguanggao" @click="clickurlloc(item.url)" v-for="(item,index) in data" :key="index" >
             <img :src="item.img" alt="">
         </div>
@@ -21,6 +21,16 @@ export default {
   components: {
     list
   },
+  computed: {
+    filterdatatuijian () {
+      this.tuijian.map((val, index) => {
+        if (val.id === this.$route.query.id) {
+          this.$delete(this.tuijian, index)
+        }
+      })
+      return this.tuijian
+    }
+  },
   methods: {
     ajaxtuijian () {
       getadlink().then(res => {
@@ -29,7 +39,25 @@ export default {
     },
     ajaxtuijianguanggao () {
       xiangguantuijian().then(res => {
+        // let fiterres = res.data.data
+
+        // let op = fiterres.map((val) => {
+        //   return val.id
+        // })
+        // console.log(op)
+        // op.map((val, index) => {
+        //   if (val === this.$route.query.id) {
+        //     op.splice(index, 1)
+        //   }
+        // })
+        // console.log(op)
+
         this.tuijian = res.data.data
+        // fiterres.map((val, index) => {
+        //   if (val.id === this.$route.query.id) {
+        //     this.$delete(this.tuijian, index)
+        //   }
+        // })
       })
     },
     clickurlloc (url) {
@@ -50,6 +78,7 @@ h5{
     padding-left:30/@rem;
     font-size:30/@rem;
     margin-top:30/@rem;
+    margin-bottom:10/@rem;
 }
 .linkguanggao{
     padding:10/@rem 30/@rem;

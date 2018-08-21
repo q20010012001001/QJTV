@@ -1,6 +1,8 @@
 <template>
     <div class="paddingtop80">
         <headerhistory :headertext="headertext"></headerhistory>
+          <top-download></top-download>
+
         <div class="title">
             <h1>{{data.title}}</h1>
         </div>
@@ -23,11 +25,15 @@
 import {userdetailAxios} from '@/api/user.js'
 import touxiangimg from '@/base/detail-touxiang/detail-touxiang.vue'
 import headerhistory from '@/base/headerhistroy/headerhistroy.vue'
+import topDownload from '@/base/download/top-download.vue'
+
 export default {
   props: ['data'],
   components: {
     headerhistory,
-    touxiangimg
+    touxiangimg,
+    topDownload
+
   },
   data () {
     return {
@@ -89,14 +95,17 @@ font-size:24/@rem;
 }
 }
 .guanzhu{
-    width:126/@rem;
+    width:116/@rem;
+    height:56/@rem;
+    box-sizing:border-box;
     display:inline-block;
     color:#fff;
     background:#088DE7;
     border-radius:10/@rem;
-    text-align: center;
     font-size:26/@rem;
-    padding:14/@rem 0;
+    align-items: center;
+    display:flex;
+    justify-content: center;
 }
 
 h1{

@@ -75,6 +75,13 @@ export default {
   },
   created () {
     this.articleData()
+  },
+  watch: {
+    $route (to, from) {
+      if (to.name === 'article' && from.name === 'article') {
+        this.articleData()
+      }
+    }
   }
 }
 </script>
@@ -112,6 +119,7 @@ img{
 }
 </style>
 <style lang="less">
+@import '~common/less/common.less';
 .Article{
   .content{
   img{
@@ -121,8 +129,8 @@ img{
         max-width: 100%;
   }
   span,p,div,header,article{
-        font-size: 0.5rem !important;
-    line-height: 1.5em !important;
+        font-size: 45/@rem !important;
+    line-height: 2em !important;
   }
   }
 }

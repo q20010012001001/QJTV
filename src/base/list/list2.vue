@@ -1,6 +1,14 @@
 <template>
     <div class="list">
-        <li :class="{active:sessionlist.includes(item.id)}" v-for="(item,index) in tuijianlist" :key="index">
+        <li
+         :class="{
+           active:sessionlist.includes(item.id),
+           hoverbg:item.color
+           }"
+          v-for="(item,index) in tuijianlist"
+           :key="index"
+            @touchstart="touchstartcloclr(index)"
+             @touchend="touchendcloclr(index)">
                       <!-- 没图 -->
           <div v-if="(item.type == 1&& !item.imgs[0].img)" class="noImage">
             <div @click="linkrouter(item)" class="title flex flex-align-center">

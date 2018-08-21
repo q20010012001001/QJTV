@@ -146,6 +146,9 @@ export default {
     width:500/@rem;
     margin-right:20/@rem;
 }
+.loader-inner{
+  width:40/@rem;
+}
 .audio{
     position:relative;
 }
@@ -237,10 +240,10 @@ position:absolute;
 }
 .ball-pulse > div {
   background-color: #407600;
-  width: 0.04rem;
-  height: 0.33333333rem;
+  width: 1.6/@rem;
+  height: 13/@rem;
   border-radius: 100%;
-  margin: 0.02666667rem;
+  margin: 1.1/@rem;
   -webkit-animation-fill-mode: both;
   -o-animation-fill-mode: both;
   -moz-animation-fill-mode: both;

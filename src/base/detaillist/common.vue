@@ -5,6 +5,7 @@
           <headerdetail ref="header" :data="data"></headerdetail>
             <slot></slot>
             <tuijian ref="tuijian"></tuijian>
+            <bottom-download></bottom-download>
         </div>
     </div>
 </template>
@@ -13,6 +14,8 @@
 import loadingvue from '@/base/loading/loading.vue'
 import headerdetail from '@/base/detaillist/header.vue'
 import tuijian from '@/base/detaillist/tuijian.vue'
+import bottomDownload from '@/base/download/bottom2-download.vue'
+
 export default {
   name: 'common',
   props: ['data'],
@@ -24,7 +27,8 @@ export default {
   components: {
     loadingvue,
     headerdetail,
-    tuijian
+    tuijian,
+    bottomDownload
   },
   methods: {
     nextrick () {
