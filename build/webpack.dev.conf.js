@@ -42,6 +42,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           console.log(e)
         })
       })
+      apiRoutes.get('/downloads',(req,res)=>{
+        const url = 'http://www.quanjiaotv.com/cs/getappurl.do'
+        axios.get(url,{
+          headers:{
+            referer:'http://www.quanjiaotv.com/',
+            host:'www.quanjiaotv.com'
+          },
+          params:req.query
+        }).then((response) => {
+          res.json(response.data)
+        }).catch((e) => {
+          console.log(e)
+        })
+      })
       app.use('/api',apiRoutes)
     },
     clientLogLevel: 'warning',

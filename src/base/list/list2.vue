@@ -99,12 +99,13 @@
 
 <script>
 import mixin from '@/common/js/list.js'
+import {download} from '@/api/downLoad.js'
 export default {
   name: 'list2',
   mixins: [mixin],
   methods: {
     Collection (val) {
-      // alert(1)
+      download()
     }
 
   }

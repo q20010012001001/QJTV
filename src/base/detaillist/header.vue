@@ -14,7 +14,7 @@
                     <span>{{data.time | timefil}}</span>
                 </div>
             </div>
-            <div class="guanzhu" v-if="userdataa&&data">
+            <div @click="downloadclick" class="guanzhu" v-if="userdataa&&data">
                关注
             </div>
         </div>
@@ -26,6 +26,7 @@ import {userdetailAxios} from '@/api/user.js'
 import touxiangimg from '@/base/detail-touxiang/detail-touxiang.vue'
 import headerhistory from '@/base/headerhistroy/headerhistroy.vue'
 import topDownload from '@/base/download/top-download.vue'
+import {download} from '@/api/downLoad.js'
 
 export default {
   props: ['data'],
@@ -70,6 +71,10 @@ export default {
       userdetailAxios(this.$route.query.uid).then(res => {
         this.userdataa = res.data.data
       })
+    },
+
+    downloadclick () {
+      download()
     }
   },
   created () {

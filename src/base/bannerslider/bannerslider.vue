@@ -4,7 +4,7 @@
         <slot></slot>
     </div>
     <ol class="border-box flex flex-align-center flex-pack-justify">
-        <li :class="{active:currentIndex === index}" v-for="(item,index) in titledata" :key="index">{{item}}</li>
+        <li :class="{active:currentIndex === index}" class="omit" v-for="(item,index) in titledata" :key="index">{{item}}</li>
         <div class="num">
 {{currentIndex+1}} / {{titledata.length}}
         </div>
@@ -106,6 +106,7 @@ ol{
             font-size:32/@rem;
             li{
                 display:none;
+                width:480/@rem;
                 &.active{
                     display: block;
                 }

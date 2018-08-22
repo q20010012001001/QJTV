@@ -35,7 +35,6 @@
 </template>
 
 <script>
-// import {searchajax} from '@/api/search.js'
 import hheader from 'base/header/header'
 import listtwo from '@/base/list/list2.vue'
 import scroll from '@/base/scroll/scroll.vue'

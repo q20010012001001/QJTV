@@ -1,6 +1,6 @@
 <template>
     <section class="article">
-      <common v-show="!booelhide" class="artiscommmon" :data="data">
+      <common :class="{active:!booelhide}" class="artiscommmon" :data="data">
         <div class="Content Article">
           <div
            ref="content"
@@ -89,7 +89,7 @@ export default {
 <style lang="less" scoped>
 @import '~common/less/common.less';
 .pospops{
-  z-index:3 !important;
+  z-index:999 !important;
   visibility: inherit !important;
 }
 .po{
@@ -99,6 +99,9 @@ export default {
 .artiscommmon{
   z-index:2;
   background:#fff;
+  &.active{
+    z-index:-1;
+  }
 }
 .article{
     width:100%;
@@ -131,6 +134,9 @@ img{
   span,p,div,header,article{
         font-size: 45/@rem !important;
     line-height: 2em !important;
+  }
+  p,div,header,article,section{
+    width:100% !important;
   }
   }
 }

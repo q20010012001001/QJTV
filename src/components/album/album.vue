@@ -1,12 +1,12 @@
 <template>
-    <section @click.prevent.stop="showhide" v-if="data.photos" class="album">
+    <section @click.prevent.stop="showhide($event)" v-if="data.photos" class="album">
       <div class="headero flex flex-pack-justify flex-align-center">
         <backbutton :imgnumber="1"></backbutton>
         <div class="l">
           <span @click="useda">
             <touxiangimg :img="touxiangmimg.img"></touxiangimg>
           </span>
-          <img class="dkso" src="./more.png" alt="">
+          <img @click="downloadclick" class="dkso" src="./more.png" alt="">
         </div>
       </div>
               <albumslider @duratfun="duratfun" @currentfun="currentfun">
@@ -46,6 +46,7 @@ import {userdetailAxios} from '@/api/user.js'
 import {albumAxios} from '@/api/detailend'
 import albumslider from '@/base/album-slider/albumSlider.vue'
 import albumPro from '@/base/detaillist/album-pro.vue'
+import {download} from '@/api/downLoad.js'
 export default {
   components: {
     albumslider,
@@ -64,8 +65,15 @@ export default {
   },
   methods: {
 
+    downloadclick () {
+      download()
+    },
+
     // 点击图集页面隐藏或显示图集说明
-    showhide () {
+    showhide (e) {
+      if (e.target.className === 'dkso') {
+        return
+      }
       this.albumshow = !this.albumshow
     },
 

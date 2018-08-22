@@ -14,7 +14,7 @@
 
         <!-- 右边 -->
         <div class="flex flex-align-center">
-            <div class="bora flex flex-align-center flex-pack-center">立即打开</div>
+            <div @click="downloadclick" class="bora flex flex-align-center flex-pack-center">立即打开</div>
             <div
              @click="remove(this)"
               class="remove flex flex-align-center"
@@ -28,10 +28,14 @@
 </template>
 
 <script>
+import {download} from '@/api/downLoad.js'
 export default {
   methods: {
     remove (that) {
       this.$refs.bottom.style.display = 'none'
+    },
+    downloadclick () {
+      download()
     }
   }
 }

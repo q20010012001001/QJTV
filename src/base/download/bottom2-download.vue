@@ -3,7 +3,7 @@
         <div class="flex flex-pack-center flex-align-center">
             <span class="da">全椒广播电视台</span>
             <span class="xi">查看全部精彩评论</span>
-            <div class="donwload flex flex-align-center flex-pack-center">
+            <div @click="downloadclick" class="donwload flex flex-align-center flex-pack-center">
                 <span>打开</span>
             </div>
         </div>
@@ -11,8 +11,13 @@
 </template>
 
 <script>
+import {download} from '@/api/downLoad.js'
 export default {
-
+  methods: {
+    downloadclick () {
+      download()
+    }
+  }
 }
 </script>
 

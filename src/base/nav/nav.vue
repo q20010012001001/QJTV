@@ -37,15 +37,7 @@ export default {
     }
   },
   methods: {
-    // navclick (itmeId) {
-    //   console.log(1)
-    //   // this.$router.push({
-    //   //   path: '/recommend',
-    //   //   query: {
-    //   //     id: itmeId
-    //   //   }
-    //   // })
-    // },
+
     // 更新导航滚动位置
     navsliderNew () {
       this.$refs.naslider._indexnav()
@@ -58,7 +50,10 @@ export default {
     // 获取导航数据
     navData () {
       return new Promise((resolve, reject) => {
-        if (localStorage.getItem('vuex')) {
+        let localfilter = localStorage.getItem('vuex')
+        let ko = localfilter ? JSON.parse(localfilter) : false
+        // 判断有vuex但是没有内容的情况
+        if (ko && (ko.navdata.other.length > 0 || ko.navdata.default.length > 0)) {
           let vuexdata = JSON.parse(localStorage.getItem('vuex'))
           this.datanav = vuexdata.navdata
           this.navsinger(vuexdata.navdata)

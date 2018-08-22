@@ -5,7 +5,7 @@
                 <img src="@/common/image/logo.png" alt="">
                 <span>全椒广播电视台</span>
             </div>
-            <div class="right flex flex-align-center flex-pack-center">
+            <div @click="downloadclick" class="right flex flex-align-center flex-pack-center">
                 立即打开
             </div>
         </div>
@@ -13,8 +13,13 @@
 </template>
 
 <script>
+import {download} from '@/api/downLoad.js'
 export default {
-
+  methods: {
+    downloadclick () {
+      download()
+    }
+  }
 }
 </script>
 

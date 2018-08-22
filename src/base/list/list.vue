@@ -54,7 +54,8 @@
                   {{item.title}}
                 </div>
                 <div @click="linkrouter(item)" class="pongeImg flex">
-                    <img class="flex-1" v-lazy="item.arrimg[0]" alt="">
+                    <img v-if="isdetailBollean" class="flex-1" :src="item.arrimg[0]" alt="">
+                    <img v-if="!isdetailBollean" class="flex-1" v-lazy="item.arrimg[0]" alt="">
                     <span v-if="item.type === '0'" class="write"></span>
                   </div>
 <div class="pro flex flex-align-center">
@@ -71,18 +72,32 @@
                   {{item.title}}
                 </div>
                 <div v-if="item.type == 0" class="treeimg flex-pack-justify flex">
-                  <div><img v-lazy="item.arrimg[0]" alt=""></div>
-                  <div><img v-lazy="item.arrimg[1]" alt=""></div>
                   <div>
-                    <img v-lazy="item.arrimg[2]" alt="">
+                    <img v-if="isdetailBollean" :src="item.arrimg[0]" alt="">
+                    <img v-if="!isdetailBollean" v-lazy="item.arrimg[0]" alt="">
+                  </div>
+                  <div>
+                    <img v-if="isdetailBollean" :src="item.arrimg[1]" alt="">
+                    <img v-if="!isdetailBollean" v-lazy="item.arrimg[1]" alt="">
+                  </div>
+                  <div>
+                    <img v-if="isdetailBollean" :src="item.arrimg[2]" alt="">
+                    <img v-if="!isdetailBollean" v-lazy="item.arrimg[2]" alt="">
                     <span v-if="item.type === '0'" class="write"></span>
                   </div>
                 </div>
                 <div v-else class="treeimg flex-pack-justify flex">
-                  <div><img v-lazy="item.img" alt=""></div>
-                  <div><img v-lazy="item.img2" alt=""></div>
                   <div>
-                    <img v-lazy="item.img3" alt="">
+                    <img v-if="isdetailBollean" :src="item.img" alt="">
+                    <img v-if="!isdetailBollean" v-lazy="item.img" alt="">
+                  </div>
+                  <div>
+                    <img v-if="isdetailBollean" :src="item.img2" alt="">
+                    <img v-if="!isdetailBollean" v-lazy="item.img2" alt="">
+                  </div>
+                  <div>
+                    <img v-if="isdetailBollean" :src="item.img3" alt="">
+                    <img v-if="!isdetailBollean" v-lazy="item.img3" alt="">
                     <span v-if="item.type === '0'" class="write"></span>
                   </div>
                 </div>
@@ -101,7 +116,8 @@
                   {{item.title}}
                 </div>
                 <div class="imgpro">
-                  <img v-lazy="item.img" alt="">
+                  <img v-if="isdetailBollean" :src="item.img" alt="">
+                  <img v-if="!isdetailBollean" v-lazy="item.img" alt="">
                   <span v-if="item.type === '0'" class="write"></span>
                 </div>
 
@@ -158,23 +174,6 @@ export default {
         }
       })
       return op
-    }
-  },
-  filters: {
-    imgUrlStr (val, a, item) {
-      if (item.type === '0') {
-        let lastindedxof = val.lastIndexOf('-')
-        let yi = val.substring(0, lastindedxof)
-        let lzui = val.substring(lastindedxof)
-        let er = lzui.split('.')[1]
-        let arr = []
-        for (let i = 1; i < 4; i++) {
-          arr.push(`${yi}-${i}.${er}`)
-        }
-        return arr[a]
-      } else {
-        return [item.img, item.img2, item.img3][a]
-      }
     }
   },
   methods: {

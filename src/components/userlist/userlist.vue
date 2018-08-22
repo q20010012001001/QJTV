@@ -16,7 +16,7 @@
         <div class="text flex flex-v flex-pack-center">
           <div class="colorf00 flex">
             <span>{{userdetail.username}}</span>
-            <span class="lol flex flex-align-center"><img src="./attention.png" alt=""></span>
+            <span @click="downloadclick" class="lol flex flex-align-center"><img src="./attention.png" alt=""></span>
           </div>
           <div class="colorfff">{{userdetail.desc}}</div>
         </div>
@@ -57,10 +57,15 @@ import scroll from '@/base/scroll/scroll.vue'
 import listtwo from '@/base/list/list2.vue'
 import loading from 'base/loading/loading.vue'
 import {prefixStyle} from '@/common/js/dom.js'
+import {download} from '@/api/downLoad.js'
 
 const transform = prefixStyle('transform')
 export default {
   methods: {
+    downloadclick () {
+      download()
+    },
+
     pullingUp () {
       this.userlistData()
     },
