@@ -88,5 +88,8 @@ export default {
     width:100%;
     height:100%;
     background: #000;
+    margin:auto;
+    .bodymax();
+    overflow:hidden;
 }
 </style>

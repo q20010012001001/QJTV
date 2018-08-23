@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import '@/common/css/common.css'
+import '@/common/css/common.less'
 import 'lib-flexible'
 
 import store from '@/store/index'

@@ -4,13 +4,13 @@
         <div class="true">
             <div class="title">我的频道<span>点击删除频道</span></div>
             <ul class="clearfix">
-                <li @click="liclick(0,index)" :key="index" v-for="(item,index) in navdata.default" class="omit border-box">{{item.title}}</li>
+                <li @click.prevent.stop="liclick(0,index)" :key="index" v-for="(item,index) in navdata.default" class="omit border-box">{{item.title}}</li>
             </ul>
         </div>
         <div class="flase">
             <div class="title">频道推荐<span>点击添加以下频道</span></div>
             <ul>
-                <li @click="liclick(1,index)" :key="index" v-for="(item,index) in navdata.other" class="omit border-box">{{item.title}}</li>
+                <li @click.prevent.stop="liclick(1,index)" :key="index" v-for="(item,index) in navdata.other" class="omit border-box">{{item.title}}</li>
             </ul>
         </div>
     </section>
@@ -101,6 +101,7 @@ ul{
 
 }
     .plus{
+        .bodymax();
         width:100%;
         height:100%;
         background:#f4f5f6;
@@ -108,6 +109,7 @@ ul{
         box-sizing: border-box;
         position:fixed;
         top:0;
+        overflow-y:scroll;
     }
     .title{
         font-size:33/@rem;

@@ -236,6 +236,7 @@ export default {
 
 .content{
   // height:100%;
+  .bodymax();
   position:fixed;
   overflow:hidden;
   top:150/@rem;

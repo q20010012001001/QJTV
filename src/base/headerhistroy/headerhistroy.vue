@@ -25,10 +25,13 @@ export default {
     color:#fff;
 }
 .header{
+  .bodymax();
     position:fixed;
     height:80/@rem;
     top:0;
   left:0;
+  margin:auto;
+  right:0;
   width:100%;
     background: #f00;
     padding:0 40/@rem;

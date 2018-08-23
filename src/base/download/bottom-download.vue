@@ -65,9 +65,11 @@ export default {
 
 }
 .bottom{
+    .bodymax();
     height:80/@rem;
     position:fixed;
     bottom:0;
+    margin:auto;
     background:rgba(0,0,0,.8);
     left:0;
     right:0;

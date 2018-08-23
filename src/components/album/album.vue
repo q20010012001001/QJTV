@@ -118,7 +118,7 @@ export default {
   padding:0 30/@rem;
   padding-top:20/@rem;
   padding-bottom:20/@rem;
-  overflow-x:scroll;
+  overflow-y:scroll;
       transform: translate3d(0,0,0);
   li{
     // height:100%;
@@ -139,6 +139,9 @@ margin-top:20/@rem;
   position:fixed;
   top:0;
   left:0;
+  right:0;
+  margin:auto;
+  .bodymax();
 }
 
 .dkso{

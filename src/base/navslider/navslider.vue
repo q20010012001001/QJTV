@@ -21,7 +21,17 @@ export default {
         bounce: { // 当滚动超过边缘的时候会有一小段回弹动画。设置为 true 则开启动画
           left: false,
           right: false
+        },
+        mouseWheel: { // 鼠标滚动
+
         }
+        // scrollbar: { // 加滚动条
+        //   fade: false
+        // }
+        // preventDefaultException: {
+        //   tagName: /^(LI)$/
+        // }
+
       })
 
       this._indexnav()

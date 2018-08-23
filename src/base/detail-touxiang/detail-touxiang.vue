@@ -3,8 +3,14 @@
 </template>
 
 <script>
+let imgdefault = require('@/common/image/logo.png')
 export default {
-  props: ['img']
+  props: {
+    img: {
+      type: String,
+      default: imgdefault
+    }
+  }
 }
 </script>
 

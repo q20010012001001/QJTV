@@ -251,7 +251,9 @@ export default {
   left:0;
   right:0;
   width:100%;
-  overflow:hidden
+  overflow:hidden;
+  .bodymax();
+  margin:auto;
 }
   .searchinput{
     height:100/@rem;

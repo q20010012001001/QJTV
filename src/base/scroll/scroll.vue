@@ -43,7 +43,10 @@ export default {
       }
 
       this.scroll = new BTscroll(this.$refs.wrapper, {
-        scrollbar: true,
+        scrollbar: {
+          fade: false,
+          interactive: true
+        },
         click: true,
         probeType: this.probeType,
         pullDownRefresh: this.pullDownRefresh,
@@ -51,7 +54,13 @@ export default {
         bounce: {
           bottom: false,
           top: this.bounceTop
+        },
+        mouseWheel: {
+          invert: false
         }
+        // preventDefaultException: {
+        //   tagName: /^(LI|DIV|SPAN|IMG)$/
+        // }
       })
 
       let me = this

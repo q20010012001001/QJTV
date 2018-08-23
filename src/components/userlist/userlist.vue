@@ -11,14 +11,14 @@
       <!-- 头像背景头像 -->
       <div ref="bgurlimg" class="backgroundurl flex flex-v flex-align-center" :style="{backgroundImage:'url('+(userdetail.bgimg?userdetail.bgimg:banseimg)+')'}">}
         <div class="touxiang flex flex-pack-center">
-          <div><img :src="userdetail.img" alt=""></div>
+          <div><img :src="userdetail.img | imgdefa" alt=""></div>
         </div>
         <div class="text flex flex-v flex-pack-center">
-          <div class="colorf00 flex">
-            <span>{{userdetail.username}}</span>
+          <div class="colorf00 flex flex-align-center">
+            <span>{{userdetail.username | namefilter}}</span>
             <span @click="downloadclick" class="lol flex flex-align-center"><img src="./attention.png" alt=""></span>
           </div>
-          <div class="colorfff">{{userdetail.desc}}</div>
+          <div class="colorfff">{{userdetail.desc | namefilter}}</div>
         </div>
       </div>
 
@@ -60,7 +60,16 @@ import {prefixStyle} from '@/common/js/dom.js'
 import {download} from '@/api/downLoad.js'
 
 const transform = prefixStyle('transform')
+let imgdefault = require('@/common/image/logo.png')
 export default {
+  filters: {
+    imgdefa (val) {
+      return val || imgdefault
+    },
+    namefilter (val) {
+      return val || '全椒广播电视台'
+    }
+  },
   methods: {
     downloadclick () {
       download()
@@ -181,6 +190,7 @@ export default {
   }
 }
 .posscroll{
+  .bodymax();
   position:fixed;
   // overflow: hidden;
   bottom:0;
@@ -218,6 +228,7 @@ export default {
   font-size:24/@rem;
 }
 .colorfff{
+  margin-top:10/@rem;
   color:#fff;
       text-shadow: 1/@rem 2/@rem 0px #000;
 }
@@ -225,7 +236,7 @@ export default {
   color:#dd3635;
   font-weight:bold;
       text-shadow: 0px 1/@rem 0px #fff;
-      font-size:36/@rem;
+      font-size:28/@rem;
       padding-bottom:10/@rem;
       padding-top:10/@rem;
 }
