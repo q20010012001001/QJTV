@@ -12,14 +12,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://www.quanjiaotv.com',
+        target: 'http://www.qxnrtv.com/',
         secure: false, // 默认情况下，不接受运行在 HTTPS 上，且使用了无效证书的后端服务器
         changeOrigin: true // 是否跨域
       }
     },
 
     // Various Dev Server settings
-    host: '10.10.5.94', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

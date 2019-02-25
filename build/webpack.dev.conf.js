@@ -29,10 +29,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   devServer: {
     before(apiRoutes){
       apiRoutes.get('/getSearchList',(req,res)=>{
-        const url = 'http://www.quanjiaotv.com/json/LoadSearchList.do'
+        const url = 'http://www.qxnrtv.com/json/LoadSearchList.do'
         axios.get(url,{
           headers:{
-            referer:'http://www.quanjiaotv.com/search.do',
+            referer:'http://www.qxnrtv.com/search.do',
             host:'www.quanjiaotv.com'
           },
           params:req.query
@@ -43,10 +43,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         })
       })
       apiRoutes.get('/downloads',(req,res)=>{
-        const url = 'http://www.quanjiaotv.com/cs/getappurl.do'
+        const url = 'http://www.qxnrtv.com/cs/getappurl.do'
         axios.get(url,{
           headers:{
-            referer:'http://www.quanjiaotv.com/',
+            referer:'http://www.qxnrtv.com/',
             host:'www.quanjiaotv.com'
           },
           params:req.query
