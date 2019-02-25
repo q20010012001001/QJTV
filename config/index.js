@@ -11,10 +11,10 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api':{
-        target:'http://www.quanjiaotv.com',
-        secure: false, //默认情况下，不接受运行在 HTTPS 上，且使用了无效证书的后端服务器
-        changeOrigin: true, //是否跨域
+      '/api': {
+        target: 'http://www.quanjiaotv.com',
+        secure: false, // 默认情况下，不接受运行在 HTTPS 上，且使用了无效证书的后端服务器
+        changeOrigin: true // 是否跨域
       }
     },
 
@@ -56,13 +56,13 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
